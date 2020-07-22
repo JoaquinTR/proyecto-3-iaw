@@ -1,3 +1,8 @@
+### Aclaraciones
+
+Por simpleza guardo al usuario dentro del local storage junto con su api_token, de más está decir que est es una locura, pero por cuestiones de simpleza decidí mantenerlo así, me permite un rápido y fácil acceso a la funcionalidad de login, permitiéndome concentrar en las funcionalidades relacionadas al desarrollo de las funcionalidades deseadas.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
