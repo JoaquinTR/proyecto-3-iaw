@@ -73,15 +73,17 @@ class NewPedido extends React.Component {
 
         let funcion = "postPedido";
 
+        let msg = "Pedido creado correctamente";
         if(this.state.edit){ //cambio la llamada a la de una edición de pedido.
             funcion = "updatePedido"
             datosEnvio.pedido_id = this.state.id; //obtener de alguna manera el id!
+            msg = "Pedido modificado correctamente";
         }
         
         apiService[funcion](datosEnvio).then(response=>{
             $('#loader').modal("hide");
             console.log(response)
-            toast("Pedido creado correctamente ",{
+            toast(msg,{
                 className: 'bg-success text-light',
                 progressClassName: 'bg-light'
               });

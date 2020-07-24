@@ -83,7 +83,7 @@ class App extends React.Component {
           {/* Contenedor principal */}
           <ToastContainer
           position="top-center"
-          autoClose={false}
+          autoClose={4000}
           hideProgressBar={true}
           newestOnTop={false}
           closeOnClick
