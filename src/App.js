@@ -3,6 +3,7 @@ import React from 'react';
 import Login from './_components/Login';
 import ProtectedRoute from './_components/PrivateRoute';
 import {Home} from './_components/Home';
+import {NewPedido} from './_components/NewPedido';
 import './App.css';
 import {userService} from './_services/user.service';
 import {eventsService} from './_services/events.service';
@@ -88,6 +89,14 @@ class App extends React.Component {
               exact
               path="/login"
               component={Login} />
+            <Route
+              exact
+              path="/new/pedido"
+              component={NewPedido} />
+            <Route
+              exact
+              path="/edit/pedido"
+              component={NewPedido} />
           </Switch>
         </div>
         </Router>

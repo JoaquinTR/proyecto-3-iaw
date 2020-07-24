@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 //import {userService} from '../_services/user.service';
 import {apiService} from '../_services/api.service';
 import '../_css/Home.css';
@@ -14,48 +15,10 @@ class Home extends React.Component {
             //user: {},
             pedidos: []
         };
-    }
 
-    componentDidMount() {
-        $('#loader').modal("show");
-        //obtengo el usuario
-        //let u = userService.getData();
-        
-        /* if(u == null){
-            u = ""; 
-        } */
-        
-        //Obtengo la lista de pedidos
-        apiService.misPedidos().then(data=>{
-            //console.log(data);
-            this.setState({
-                pedidos: data,
-                loading: false
-            });
 
-            $('.modal-backdrop').remove();      //no se porque el backdrop se esta quedando al frente, raro
-        }).catch(error=>{
-            console.log(error);
-        });
-
-        //obtengo los pedidos del usuario
-
-        /* this.setState({ 
-            user: u
-        }); */
-    }
-
-    render() {
-        const { loading } = this.state;
-        this.pedidos = this.state.pedidos
-        if(this.pedidos){
-            this.pedidos = this.state.pedidos.map((item, key) =>
-                <Pedido item={item} key={item.id}/>
-            );
-        }
-        
-        let modal = (
-            <div id="loader" className="modal fade bd-example-modal-lg"  data-keyboard="false" tabIndex="-1">
+        this.loader = (
+            <div id="loader" className="modal bd-example-modal-lg" data-backdrop="static" tabIndex="1">
                 <div className="modal-dialog modal-sm">
                     <div className="modal-content" >
                         <div className="spinner-border" style={{ "width": 3 +"rem", height: 3+"rem", }} role="status">
@@ -65,9 +28,107 @@ class Home extends React.Component {
                 </div>
             </div>
         )
+
+        this.showLoader = this.showLoader.bind(this);
+        this.hideLoader = this.hideLoader.bind(this);
+        this.deleteComponent = this.deleteComponent.bind(this);
+    }
+
+    componentWillUnmount(){
+        this.showLoader = null;
+        this.hideLoader = null;
+    }
+
+    componentDidMount() {
+        $('#loader').modal("show");
+
+        //Obtengo la lista de pedidos
+        apiService.misPedidos().then(data=>{
+            //console.log(data);
+           
+            let pedidosElem = {};
+            pedidosElem = data.map((item, key) =>
+                <Pedido item={item} id={item.id} key={item.id} hideLoader={this.hideLoader}
+                showLoader={this.showLoader} deleteComponent={this.deleteComponent} />
+            );
+
+            this.setState({
+                pedidos: data,
+                pedidosElem: pedidosElem,
+                loading: false
+            });
+
+            this.hideLoader();
+
+        }).catch(error=>{
+            console.log(error);
+            this.hideLoader();
+        });
+    }
+
+    /**
+     * Muestra el loader, se lo paso a los pedidos!
+     */
+    showLoader(){
+        this.setState({loading: true})
+        $('#loader').modal("show");
+    }
+
+    /**
+     * Esconde el loader, se lo paso a los pedidos!
+     */
+    hideLoader(){
+        this.setState({loading: false})
+        $('#loader').modal("hide");
+    }
+
+    /**
+     * Vuelve a buscar los pedidos, creando la ilusión de que se
+     * eliminó manualmente (podría haberlo eliminado manualmente
+     * pero me ahorro control de errores en caso de que no se haya
+     * eliminado correctamente).
+     */
+    deleteComponent(item = null){
+        if(item){
+            console.log(item);
+        }
+        apiService.misPedidos().then(data=>{
+            //console.log(data);
+
+            let pedidosElem = {};
+            pedidosElem = data.map((item, key) =>
+                <Pedido item={item} id={item.id} key={item.id} hideLoader={this.hideLoader}
+                showLoader={this.showLoader} deleteComponent={this.deleteComponent} />
+            );
+
+            this.setState({
+                pedidos: data,
+                pedidosElem: pedidosElem,
+                loading: false
+            });
+
+            this.hideLoader();
+
+        }).catch(error=>{
+            console.log(error);
+            this.hideLoader();
+        });
+    }
+
+    render() {
+        const { pedidosElem } = this.state;
+        /* this.pedidos = null;
+        if(this.state.pedidos){
+            this.pedidos = this.state.pedidos.map((item, key) =>
+                <Pedido item={item} id={item.id} key={item.id} hideLoader={this.hideLoader}
+                showLoader={this.showLoader} deleteComponent={this.deleteComponent} />
+            );
+            console.log(this.pedidos);
+        } */
+
         return (
             <div>
-                {loading && modal}
+                {this.loader}
             
             
                 <div className="container my-3">
@@ -75,11 +136,13 @@ class Home extends React.Component {
                         <h1 className="pl-3">Mis pedidos</h1>
                         <div className="d-flex pull-right align-items-center">
                             <div className="btn-group" role="group" aria-label="nuevo pedido">
-                              <button type="button" className="btn btn-success">Nuevo Pedido</button>
+                                <Link to="/new/pedido">
+                                    <button type="button" className="btn btn-success">Nuevo Pedido</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
-                    {this.pedidos}
+                    {pedidosElem}
                 </div>
             </div>
         );
