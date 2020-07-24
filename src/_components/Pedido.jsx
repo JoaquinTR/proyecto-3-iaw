@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 //import {userService} from '../_services/user.service';
@@ -15,15 +16,8 @@ class Pedido extends Component {
       item: this.props.item
     };
 
-    this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.showModal = this.showModal.bind(this);
-  }
-
-  handleEdit(e){
-    console.log("edit");
-
-    //aca tengo que rutear al edit!
   }
 
   componentDidMount(){
@@ -41,13 +35,17 @@ class Pedido extends Component {
     this.props.showLoader();
     
     apiService.deletePedido(this.state.item.id).then((response)=>{
-      console.log(response);
+      //console.log(response);
       
       //le indico al padre que vuelva a buscar los pedidos, ya que hay uno que se eliminó.
       this.props.deleteComponent();
     }).catch((error)=>{
       console.error(error);
       this.props.hideLoader();
+      toast("Error: "+error,{
+        className: 'bg-danger text-light',
+        progressClassName: 'bg-light'
+      });
     });
   }
 
@@ -59,7 +57,6 @@ class Pedido extends Component {
   }
 
   componentWillUnmount(){
-    this.handleEdit = null;
     this.handleDelete = null;
     this.showModal = null;
   }
@@ -75,7 +72,7 @@ class Pedido extends Component {
         this.generos = this.state.item.genero.replace(/[[\]"]+/g, '').replace(/[,]+/g, ', ');
         this.plataformas = this.state.item.plataforma.replace(/[[\]"]+/g, '').replace(/[,]+/g, ', ');
 
-        this.date = new Date(this.state.item.created_at).toLocaleDateString();
+        this.date = "Creado: "+this.state.item.created_at.split('T')[0].split('-').reverse().join('/');
 
         //loader
         let modal = (
@@ -122,7 +119,7 @@ class Pedido extends Component {
                     pathname: `/edit/pedido`,
                     state: this.state.item
                   }}>
-                    <button className="btn btn-info btn-sm" title="editar" onClick={this.handleEdit}>
+                    <button className="btn btn-info btn-sm" title="editar">
                       {edit}
                     </button>
                 </Link>
@@ -137,7 +134,7 @@ class Pedido extends Component {
                 <h5 className="card-title">{"Desarrolladores: " + this.desarrolladores}</h5>
                 <h5 className="card-title">{"Editores: " + this.editores}</h5>
                 <p className="card-text">{this.state.item.descripcion}</p>
-                <h5 className="card-title">{"Fecha de lanzamiento: " + new Date(this.state.item.fecha_lanzamiento).toLocaleDateString()}</h5>
+                <h5 className="card-title">{"Fecha de lanzamiento: " + this.state.item.fecha_lanzamiento.split('-').reverse().join('/')}</h5>
               </div>
               <div className="card-footer bg-dark text-light text-muted">
                 {this.date}

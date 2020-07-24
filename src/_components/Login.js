@@ -44,7 +44,7 @@ class Login extends React.Component {
               this.props.history.push("/home");
             },
             error => {
-              console.log(error);
+              console.error(error);
               this.setState({ error, loading: false });
             }
         );

@@ -1,10 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { toast } from 'react-toastify';
 //import {userService} from '../_services/user.service';
 import {apiService} from '../_services/api.service';
 import '../_css/Home.css';
 import Pedido from './Pedido';
 const $ = window.$;
+
 
 class Home extends React.Component {
     constructor(props) {
@@ -44,7 +46,7 @@ class Home extends React.Component {
 
         //Obtengo la lista de pedidos
         apiService.misPedidos().then(data=>{
-            //console.log(data);
+            console.log(data);
            
             let pedidosElem = {};
             pedidosElem = data.map((item, key) =>
@@ -59,10 +61,14 @@ class Home extends React.Component {
             });
 
             this.hideLoader();
-
+            
         }).catch(error=>{
             console.log(error);
             this.hideLoader();
+            toast("Error: "+error,{
+                className: 'bg-danger text-light',
+                progressClassName: 'bg-light'
+              });
         });
     }
 
@@ -109,9 +115,18 @@ class Home extends React.Component {
 
             this.hideLoader();
 
+            toast("Pedido eliminado correctamente",{
+                className: 'bg-success text-light',
+                progressClassName: 'bg-light'
+              });
+
         }).catch(error=>{
             console.log(error);
             this.hideLoader();
+            toast("Error: "+error,{
+                className: 'bg-danger text-light',
+                progressClassName: 'bg-light'
+              });
         });
     }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { toast } from 'react-toastify';
 //import {userService} from '../_services/user.service';
 import {apiService} from '../_services/api.service';
 import DatePicker from "react-datepicker";
@@ -31,7 +32,8 @@ class NewPedido extends React.Component {
                 },
                 edit: true
             };
-            delete this.state.fecha_lanzamiento;
+            //le sumo 12 horas para que no jodan los benditos tiempos horarios
+            this.state.fecha_lanzamiento = new Date(this.state.fecha_lanzamiento+" 12:00:00");
         }else{
             this.state = {
                 //valores
@@ -79,11 +81,18 @@ class NewPedido extends React.Component {
         apiService[funcion](datosEnvio).then(response=>{
             $('#loader').modal("hide");
             console.log(response)
-            
+            toast("Pedido creado correctamente ",{
+                className: 'bg-success text-light',
+                progressClassName: 'bg-light'
+              });
             this.props.history.push("/home");   //vuelvo a home
         }).catch(error=>{
             console.log(error);
             $('#loader').modal("hide");
+            toast("Error: "+error,{
+                className: 'bg-danger text-light',
+                progressClassName: 'bg-light'
+              });
         });
     }
 

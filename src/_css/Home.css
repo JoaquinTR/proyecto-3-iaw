@@ -17,3 +17,7 @@
 .pull-right{
   float: right !important;
 }
+
+.Toastify__toast.Toastify__toast--default {
+  border-radius: 5px !important;
+}

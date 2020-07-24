@@ -2,12 +2,15 @@ import { BrowserRouter as Router,Redirect,Route,Switch, Link} from 'react-router
 import React from 'react';
 import Login from './_components/Login';
 import ProtectedRoute from './_components/PrivateRoute';
+import ScrollTopArrow from './_components/ScrollTopArrow';
 import {Home} from './_components/Home';
 import {NewPedido} from './_components/NewPedido';
 import './App.css';
 import {userService} from './_services/user.service';
 import {eventsService} from './_services/events.service';
 import * as Constants from './Constants';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,7 +59,8 @@ class App extends React.Component {
       </div>
     </div>);
     }
-    return (<Router>
+    return (
+    <Router>
         <div className="main">
           <nav className="navbar pull-left navbar-expand-md navbar-dark shadow-sm sticky-top">
               <div className="container">
@@ -77,6 +81,17 @@ class App extends React.Component {
           </nav>
 
           {/* Contenedor principal */}
+          <ToastContainer
+          position="top-center"
+          autoClose={false}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          />
 
           <Redirect
             from="/"
@@ -98,8 +113,10 @@ class App extends React.Component {
               path="/edit/pedido"
               component={NewPedido} />
           </Switch>
+          <ScrollTopArrow/>
         </div>
         </Router>
+        
     );
   }
 }
