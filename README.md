@@ -27,7 +27,7 @@ Endpoints (nombre método - metodo HTTP - ruta):
     * nombre: Nombre único del juego.
     * plataforma: Plataformas donde el juego está disponible.
     
-* updatePedido (/api/pedido/create): Modifica un pedido para un juego, los siguientes campos son requeridos:
+* updatePedido (PUT /api/pedido/create): Modifica un pedido para un juego, los siguientes campos son requeridos:
     * users_id: Identificador interno del usuario.
     * fecha_lanzamiento: Fecha de lanzamiento del juego.
     * desarrollador: Desarrolladores del juego.
@@ -37,16 +37,21 @@ Endpoints (nombre método - metodo HTTP - ruta):
     * nombre: Nombre único del juego.
     * plataforma: Plataformas donde el juego está disponible.
 
-* deletePedido (/api/pedido/delete): Elimina un pedido para un juego, los siguientes campos son requeridos:
+* deletePedido (DELETE /api/pedido/delete): Elimina un pedido para un juego, los siguientes campos son requeridos:
     * users_id: Identificador interno del usuario.
     * pedido_id: Identificador del pedido a eliminar.
 
+Además se agregó una sección para levantar pedidos dentro del panel de administración (dashboard) para crear el juego en base a los pedidos. Debido a que los usuarios pueden no tener la información especifica o precisa de un juego decidí que la pantalla para levantar un pedido muestra la información al administrador y precarga algunos campos. La tarea del administrador es la de cargar los decoradores (genero/plataforma/editor/desarrollador) que no estén presentes (posiblemente corregidos) dentro de la base de datos de la página y recién ahí terminar de levantar el pedido. Esto va a tener como consecuencia la creación de un nuevo juego en el sistema. Como tarea adicional el administrador debe cargar al menos las dos imágenes del juego (fondo y principal) aunque esto no es necesario para que ya sea accesible el nuevo juego para los usuarios.
+
 ## Usuarios para pruebas
 
+Para las pruebas para tomar un pedido desde panel de administración (dashboard) desde la aplicación en Laravel se puede usar el siguiente usuario:
+email: administrador@gmail.com
+pw: adminadmin
 
-
-
-Además se agregó una sección para levantar pedidos dentro del panel de administración para crear el juego en base a los pedidos. Debido a que los usuarios pueden no tener la información especifica o precisa de un juego decidí que la pantalla para levantar un pedido muestra la información al administrador y precarga algunos campos. La tarea del administrador es la de cargar los decoradores (genero/plataforma/editor/desarrollador) que no estén presentes (posiblemente corregidos) dentro de la base de datos de la página y recién ahí terminar de levantar el pedido. Esto va a tener como consecuencia la creación de un nuevo juego en el sistema. Como tarea adicional el administrador debe cargar al menos las dos imágenes del juego (fondo y principal) aunque esto no es necesario para que ya sea accesible el nuevo juego para los usuarios.
+Y para el uso de la página de pedidos (SPA - proyecto 3) se puede usar:
+email: api@gmail.com
+pw: api
 
 ### Aclaraciones
 
