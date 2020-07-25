@@ -175,9 +175,8 @@ class NewPedido extends React.Component {
 
         if(errors.ok){
             let datosEnvio = {...this.state};
-            datosEnvio.fecha_lanzamiento = datosEnvio.fecha_lanzamiento.toLocaleDateString();
             delete datosEnvio.formErrors;
-
+            
             this.createPedido(datosEnvio);
         }
     }
