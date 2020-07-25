@@ -82,16 +82,20 @@ class NewPedido extends React.Component {
         
         apiService[funcion](datosEnvio).then(response=>{
             $('#loader').modal("hide");
-            console.log(response)
+            
             toast(msg,{
                 className: 'bg-success text-light',
                 progressClassName: 'bg-light'
               });
             this.props.history.push("/home");   //vuelvo a home
         }).catch(error=>{
-            console.log(error);
+            console.error(error);
             $('#loader').modal("hide");
-            toast("Error: "+error,{
+            let msg = ""; 
+            for(const e in error){
+                msg = msg + error[e];
+            }
+            toast("Error: "+msg,{
                 className: 'bg-danger text-light',
                 progressClassName: 'bg-light'
               });

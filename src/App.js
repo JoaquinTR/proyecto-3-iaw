@@ -32,12 +32,10 @@ class App extends React.Component {
   }
 
   loginListener(data){
-    //console.log("login",data);
     this.setState({user: data})
   }
 
   logoutListener(data){
-    //console.log("login",data);
     this.setState({user: null})
   }
 
@@ -104,11 +102,11 @@ class App extends React.Component {
               exact
               path="/login"
               component={Login} />
-            <Route
+            <ProtectedRoute
               exact
               path="/new/pedido"
               component={NewPedido} />
-            <Route
+            <ProtectedRoute
               exact
               path="/edit/pedido"
               component={NewPedido} />

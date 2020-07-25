@@ -35,7 +35,6 @@ class Pedido extends Component {
     this.props.showLoader();
     
     apiService.deletePedido(this.state.item.id).then((response)=>{
-      //console.log(response);
       
       //le indico al padre que vuelva a buscar los pedidos, ya que hay uno que se eliminó.
       this.props.deleteComponent();

@@ -46,7 +46,6 @@ class Home extends React.Component {
 
         //Obtengo la lista de pedidos
         apiService.misPedidos().then(data=>{
-            console.log(data);
            
             let pedidosElem = {};
             pedidosElem = data.map((item, key) =>
@@ -61,9 +60,9 @@ class Home extends React.Component {
             });
 
             this.hideLoader();
-            
+
         }).catch(error=>{
-            console.log(error);
+            console.error(error);
             this.hideLoader();
             toast("Error: "+error,{
                 className: 'bg-danger text-light',
@@ -94,12 +93,8 @@ class Home extends React.Component {
      * pero me ahorro control de errores en caso de que no se haya
      * eliminado correctamente).
      */
-    deleteComponent(item = null){
-        if(item){
-            console.log(item);
-        }
+    deleteComponent(){
         apiService.misPedidos().then(data=>{
-            //console.log(data);
 
             let pedidosElem = {};
             pedidosElem = data.map((item, key) =>
@@ -121,7 +116,7 @@ class Home extends React.Component {
               });
 
         }).catch(error=>{
-            console.log(error);
+            console.error(error);
             this.hideLoader();
             toast("Error: "+error,{
                 className: 'bg-danger text-light',
@@ -132,15 +127,6 @@ class Home extends React.Component {
 
     render() {
         const { pedidosElem } = this.state;
-        /* this.pedidos = null;
-        if(this.state.pedidos){
-            this.pedidos = this.state.pedidos.map((item, key) =>
-                <Pedido item={item} id={item.id} key={item.id} hideLoader={this.hideLoader}
-                showLoader={this.showLoader} deleteComponent={this.deleteComponent} />
-            );
-            console.log(this.pedidos);
-        } */
-
         return (
             <div>
                 {this.loader}
