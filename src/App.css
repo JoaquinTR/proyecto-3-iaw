@@ -1,38 +1,71 @@
-.App {
-  text-align: center;
+/*Nuevos*/
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='4' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-dark .navbar-toggler{
+  border-color: rgba(255, 255, 255, 1)!important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-toggler{
+  background-color: rgba(255, 255, 255, 0.4)!important;
+  border: 3px solid rgba(255, 255, 255, 1)!important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.back-fix{
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  border: 2px solid rgba(255, 255, 255, 1) !important;
+  font-weight: bold!important;
+  border-radius: 0.5rem!important;
+}
+
+.game-font {
+  font-family: 'GameFont';
+}
+
+.navbar-brand{
+  font-size: 1.5rem !important;
+}
+
+.text-sm{
+  font-size: 1.2rem !important;
+}
+
+.navbar{
+  background-image:url("/images/navbar-bg2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body{
+  overflow-y: scroll !important;
+}
+
+.scrollTop {
+  position: fixed; 
+  width: 100%;
+  bottom: 20px;
   align-items: center;
+  height: 40px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  z-index: 1000;
+  cursor: pointer;
+  animation: fadeIn 0.3s;
+  transition: opacity 0.4s;
+  opacity: 0.9;
 }
 
-.App-link {
-  color: #61dafb;
+.scrollTop:hover{
+  opacity: 1;
+  color: var(--danger);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    opacity: 0.5;
   }
 }
